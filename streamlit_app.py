@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 from openai import OpenAI
@@ -9,7 +8,7 @@ import os
 @st.cache_data
 def load_glossary():
     glossary = pd.read_excel("glossary.xlsx")
-    glossary_dict = dict(zip(glossary['English'], glossary['עברית']))
+    glossary_dict = dict(zip(glossary['English'], glossary['Hebrew']))
     return glossary_dict
 
 # תרגום מונחים באמצעות מילון
@@ -57,9 +56,8 @@ if uploaded_file:
                 translated_df.at[i, col] = translation
             elif client:
                 fallback_translation = translate_fallback(str(cell), client)
-                translated_df.at[i, col] = fallback_translation
                 translated_df.at[i, col] = f"**{fallback_translation}**"  # מודגש
-                translated_df.style.applymap(lambda x: 'background-color: lightcyan', subset=pd.IndexSlice[i, col])
+                # כאן סימון רק ב-DataFrame viewer, לא בקובץ המורד
             else:
                 translated_df.at[i, col] = cell  # השאר כמו שהוא
 
