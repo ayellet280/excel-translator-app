@@ -2,3 +2,5 @@ streamlit
 pandas
 openpyxl
 openai
+pytest
+pytest-cov
